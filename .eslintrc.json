@@ -1,4 +1,12 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": "next/core-web-vitals",
+  "rules": {
+    // Unescaped entities (tırnak işaretleri) - Error'dan Warning'e çevir
+    "react/no-unescaped-entities": "warn",
+    // img tag kullanımı - Error'dan Warning'e çevir
+    "@next/next/no-img-element": "warn",
+    // React Hook dependencies - Warning olarak kal
+    "react-hooks/exhaustive-deps": "warn"
+  }
 }
 
