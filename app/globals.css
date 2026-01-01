@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .bg-grid-slate-100 {
+    background-image: linear-gradient(to right, rgb(241 245 249 / 0.5) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(241 245 249 / 0.5) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+  
+  .bg-grid-slate-800\/25 {
+    background-image: linear-gradient(to right, rgb(30 41 59 / 0.25) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(30 41 59 / 0.25) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-in {
+  animation: slide-in 0.3s ease-out;
+}
+

@@ -1,0 +1,39 @@
+name: Auto Commit on Changes
+
+# Bu workflow, belirli dosyalar değiştiğinde otomatik commit yapar
+# Dikkat: Bu genellikle önerilmez, sadece özel durumlar için
+
+on:
+  workflow_dispatch: # Manuel tetikleme
+  schedule:
+    # Her gün saat 00:00'da çalışır (opsiyonel)
+    - cron: '0 0 * * *'
+
+jobs:
+  auto-commit:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Configure Git
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+      
+      - name: Check for changes
+        id: check
+        run: |
+          git diff --quiet || echo "has_changes=true" >> $GITHUB_OUTPUT
+      
+      - name: Commit changes
+        if: steps.check.outputs.has_changes == 'true'
+        run: |
+          git add .
+          git commit -m "Auto-commit: Update generated files" || exit 0
+          git push
+
